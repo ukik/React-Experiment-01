@@ -84,6 +84,24 @@ const app = (props) => {
     setOtherState("update other useState")
   }
 
+  // two-way data binding
+  const nameChangedHandler = (event) => {
+    setPersonState({
+      persons: [
+        {
+          name: 'Udin',
+          age: 30
+        }, {
+          name: event.target.value, // data binding from Person component
+          age: 42
+        }, {
+          name: "Angel",
+          age: 34
+        }
+      ],      
+    })
+  }
+
   /*
   Important!
     ...  
@@ -159,7 +177,8 @@ const app = (props) => {
         <Person 
           name={personState.persons[1].name} 
           age={personState.persons[1].age}
-          click={switchNameHandler.bind(this, "Super Nova")}>My Hobbies: Slicing</Person>
+          click={switchNameHandler.bind(this, "Super Nova")}
+          changed={nameChangedHandler}>My Hobbies: Slicing</Person>
         <Person 
           name={personState.persons[2].name} 
           age={personState.persons[2].age}/>
