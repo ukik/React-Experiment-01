@@ -27,6 +27,11 @@ class App extends Component {
 
 // functional component bisa state or useState()
 const app = (props) => {
+
+  // Important!
+  // useState() bisa digunakan berulang kali
+  // useState() bisa berisi: object, string, number, etc
+
   const [
     personState, // sebagai getters dari persons: []
     setPersonState, // sebagai setters dari persons: []
@@ -47,7 +52,9 @@ const app = (props) => {
     otherState: "some other value, aku hanyalah data untuk memastikan setPersonState tidak mengupdate aku"
   });
 
-  console.log(personState);
+  const [otherState, setOtherState] = useState("some other useState")
+
+  console.log(personState, otherState);
 
   const switchNameHandler = () => {
     console.log('Was clicked!');
@@ -69,9 +76,12 @@ const app = (props) => {
           name: "Angel",
           age: 24
         }
-      ]
+      ],
+      // contoh ikut melampirkan otherState
+      otherState: personState.otherState
     });
     
+    setOtherState("update other useState")
   }
 
   /*
