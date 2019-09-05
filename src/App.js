@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import './App.css';
 
+import Person from './Person/Person'
+
 class App extends Component {
   render() {
     return (
@@ -10,6 +12,9 @@ class App extends Component {
         <span>only 1 root element in component</span>
         <br/>
         <span>naming element attribute cannot same as built-in served word</span>
+
+        <Person/>
+
       </div>
     );
     // return React.createElement('div', {className: 'App'},
