@@ -13,9 +13,9 @@ class App extends Component {
         <br/>
         <span>naming element attribute cannot same as built-in served word</span>
 
-        <Person/>
-        <Person/>
-        <Person/>
+        <Person name="Joni" age="30"/>
+        <Person name="Zero" age="25">My Hobbies: Slicing</Person>
+        <Person name="Megaman" age="24"/>
 
       </div>
     );
