@@ -19,14 +19,35 @@ class App extends Component {
     ]
   }
 
+  switchNameHandler = () => {
+    console.log('Was clicked!');
+  }
+
   render() {
     return (
       <div className="App">
         <h1>Hi, I'm a React App</h1>
         <p>This is really working!</p>
-        <span>only 1 root element in component</span>
-        <br/>
-        <span>naming element attribute cannot same as built-in served word</span>
+
+        {/* 
+          Important!
+          - jangan melakukan: 
+            ... onClick={this.switchNameHandler()} ...
+            karena method Handler akan dipanggil segera setelah DOM selesai di render 
+            # kecuali memang kita membutuhkan method Handler tersebut digunakan segera
+            # tidak cocok untuk method Handler
+            # cocok untuk method init data
+          - solusinya:
+            ... onClick={this.switchNameHandler} ...
+          - hipotesis: berlaku juga di vue/angular
+        */}
+        <button onClick={this.switchNameHandler}>Switch Name</button>
+
+        <p>
+          <span>only 1 root element in component</span>
+          <br/>
+          <span>naming element attribute cannot same as built-in served word</span>
+        </p>
 
         {/* manually, inline */}
         {/*
