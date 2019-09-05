@@ -56,7 +56,7 @@ const app = (props) => {
 
   console.log(personState, otherState);
 
-  const switchNameHandler = () => {
+  const switchNameHandler = (newValue) => {
     console.log('Was clicked!');
 
     // DON'T DO THIS: this.state.persons[0].name = "Tony";
@@ -67,7 +67,7 @@ const app = (props) => {
     setPersonState({
       persons: [
         {
-          name: "Tiara",
+          name: newValue,
           age: 26
         }, {
           name: "Iris",
@@ -113,19 +113,31 @@ const app = (props) => {
             # cocok untuk method init data
           - solusinya:
             ... onClick={this.switchNameHandler} ...
+            ... onClick={() => this.switchNameHandler()} ...
           - hipotesis: berlaku juga di vue/angular
         */}
 
         {/* 
-          Info!
-          ... onClick={this.switchNameHandler()} ...
+          Info! Non Argument
+          ... onClick={this.switchNameHandler} ...
           digunakan pada non var/const function
 
-          ... onClick={this.switchNameHandler()} ...
-          digunakan pada var/const function
+          ... onClick={switchNameHandler} ...
+          digunakan pada var/const function      
+          
+          Info! With Argument
+          ... onClick={this.switchNameHandler.bind(this, arg)} ...
+          digunakan pada non var/const function
+
+          ... onClick={() =>                                       (arg)} ...
+          digunakan pada var/const function      
+          
         */}
 
-        <button onClick={switchNameHandler}>Switch Name</button>
+        <button onClick={switchNameHandler.bind(this, "Hurricane")}>Switch Name Option 1</button>
+
+        {/* not call immediately */}
+        <button onClick={() => switchNameHandler('Thunderbolt')}>Switch Name Option 2</button>
 
         <p>
           <span>only 1 root element in component</span>
@@ -141,9 +153,16 @@ const app = (props) => {
         */}
 
         {/* dynamically, use state */}
-        <Person name={personState.persons[0].name} age={personState.persons[0].age}/>
-        <Person name={personState.persons[1].name} age={personState.persons[1].age}>My Hobbies: Slicing</Person>
-        <Person name={personState.persons[2].name} age={personState.persons[2].age}/>
+        <Person 
+          name={personState.persons[0].name} 
+          age={personState.persons[0].age}/>
+        <Person 
+          name={personState.persons[1].name} 
+          age={personState.persons[1].age}
+          click={switchNameHandler.bind(this, "Super Nova")}>My Hobbies: Slicing</Person>
+        <Person 
+          name={personState.persons[2].name} 
+          age={personState.persons[2].age}/>
 
       </div>
     );
