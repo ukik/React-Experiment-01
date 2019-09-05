@@ -102,6 +102,16 @@ const app = (props) => {
     })
   }
 
+  // inline-style
+  // agak sulit karena ini menggunakan js syntax 
+  const style = {
+    backgroundColor: 'white',
+    font: 'inherit',
+    border: '1px solid blue',
+    padding: '8px',
+    cursor: 'pointer',
+  }
+
   /*
   Important!
     ...  
@@ -147,15 +157,19 @@ const app = (props) => {
           ... onClick={this.switchNameHandler.bind(this, arg)} ...
           digunakan pada non var/const function
 
-          ... onClick={() =>                                       (arg)} ...
+          ... onClick={() => switchNameHandler(arg)} ...
           digunakan pada var/const function      
           
         */}
 
-        <button onClick={switchNameHandler.bind(this, "Hurricane")}>Switch Name Option 1</button>
+        <button 
+          style={style}
+          onClick={switchNameHandler.bind(this, "Hurricane")}>Switch Name Option 1</button>
 
         {/* not call immediately */}
-        <button onClick={() => switchNameHandler('Thunderbolt')}>Switch Name Option 2</button>
+        <button 
+          style={style}
+          onClick={() => switchNameHandler('Thunderbolt')}>Switch Name Option 2</button>
 
         <p>
           <span>only 1 root element in component</span>
@@ -191,6 +205,7 @@ const app = (props) => {
 
 export default app;
 
+
 /*
 // Class Component
 import React, {Component} from 'react'
@@ -215,7 +230,7 @@ export default class App extends Component {
         "date aku"
   };
 
-  switchNameHandler = () => {
+  switchNameHandler = (newValue) => {
     console.log('Was clicked!');
 
     // DON'T DO THIS: this.state.persons[0].name = "Tony"; dilarang langsung merubah
@@ -224,7 +239,7 @@ export default class App extends Component {
     this.setState({
       persons: [
         {
-          name: "Tiara",
+          name: newValue,
           age: 26
         }, {
           name: "Iris",
@@ -238,13 +253,46 @@ export default class App extends Component {
     })
   }
 
+  // two-way data binding
+  nameChangedHandler = (event) => {
+    this.setState({
+      persons: [
+        {
+          name: 'Udin',
+          age: 30
+        }, {
+          name: event.target.value, // data binding from Person component
+          age: 42
+        }, {
+          name: "Angel",
+          age: 34
+        }
+      ],      
+    })
+  }  
+
   render() {
+
+    const style = {
+      backgroundColor: 'white',
+      font: 'inherit',
+      border: '1px solid blue',
+      padding: '8px',
+      cursor: 'pointer',
+    }
+  
     return (
       <div className="App">
         <h1>Hi, I'm a React App</h1>
         <p>This is really working!</p>
 
-        <button onClick={this.switchNameHandler}>Switch Name</button>
+        <button 
+          style={style}
+          onClick={this.switchNameHandler.bind(this, "Hurricane")}>Switch Name Option 1</button>
+
+        <button 
+          style={style}
+          onClick={() => this.switchNameHandler('Thunderbolt')}>Switch Name Option 2</button>
 
         <p>
           <span>only 1 root element in component</span>
@@ -252,9 +300,17 @@ export default class App extends Component {
           <span>naming element attribute cannot same as built-in served word</span>
         </p>
 
-        <Person name={this.state.persons[0].name} age={this.state.persons[0].age}/>
-        <Person name={this.state.persons[1].name} age={this.state.persons[1].age}>My Hobbies: Slicing</Person>
-        <Person name={this.state.persons[2].name} age={this.state.persons[2].age}/>
+        <Person 
+          name={this.state.persons[0].name} 
+          age={this.state.persons[0].age}/>
+        <Person 
+          name={this.state.persons[1].name} 
+          age={this.state.persons[1].age}
+          click={this.switchNameHandler.bind(this, "Super Nova")}
+          changed={this.nameChangedHandler}>My Hobbies: Slicing</Person>
+        <Person 
+          name={this.state.persons[2].name} 
+          age={this.state.persons[2].age}/>
 
       </div>
     );
